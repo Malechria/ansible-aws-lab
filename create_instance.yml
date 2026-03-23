@@ -1,0 +1,26 @@
+---
+- name: Laboratorio - Lanzar instancia EC2 y verificar estado
+  hosts: localhost
+  gather_facts: false
+  vars:
+    tipo_instancia: "t2.micro"
+    valor_etiqueta: "LaunchedBySsmAutomation"
+    # Usamos una AMI gratuita de Amazon Linux 2023 en la región us-east-1
+    ami_id: "ami-0b0b78dcacbab728f" 
+    region_aws: "us-east-2"
+
+  tasks:
+    - name: Crear la instancia EC2
+      amazon.aws.ec2_instance:
+        name: "{{ valor_etiqueta }}"
+        instance_type: "{{ tipo_instancia }}"
+        image_id: "{{ ami_id }}"
+        region: "{{ region_aws }}"
+        tags:
+          Purpose: "LaunchInstanceAndCheckState"
+        wait: true 
+      register: resultado_ec2
+
+    - name: Mostrar el ID de la nueva instancia
+      debug:
+        msg: "¡Éxito! Instancia creada con ID: {{ resultado_ec2.instances[0].instance_id }}"
