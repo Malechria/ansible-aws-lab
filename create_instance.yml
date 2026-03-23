@@ -3,7 +3,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    tipo_instancia: "t2.micro"
+    tipo_instancia: "t3.micro"
     valor_etiqueta: "LaunchedBySsmAutomation"
     # Usamos una AMI gratuita de Amazon Linux 2023 en la región us-east-1
     ami_id: "ami-0b0b78dcacbab728f" 
